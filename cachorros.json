@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "raza": "Dogo Argentino",
+    "criador": "Criadero Ejemplo",
+    "edad": "2 meses",
+    "precio": "150.000",
+    "ciudad": "Córdoba",
+    "descripcion": "Cachorros de excelente línea de trabajo y exposición. Con vacunas al día y desparasitados.",
+    "whatsapp": "5493511234567",
+    "foto": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=75",
+    "fotoPadre": "https://images.unsplash.com/photo-1558929996-da64ba858215?w=400&q=75",
+    "fotoMadre": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=75",
+    "destacado": true
+  },
+  {
+    "id": 2,
+    "raza": "Golden Retriever",
+    "criador": "Kennel Los Pinos",
+    "edad": "45 días",
+    "precio": "200.000",
+    "ciudad": "Buenos Aires",
+    "descripcion": "Cachorros con pedigree, padres campeones nacionales. Socializados desde el nacimiento.",
+    "whatsapp": "5491123456789",
+    "foto": "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=400&q=75",
+    "fotoPadre": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=75",
+    "fotoMadre": "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=400&q=75",
+    "destacado": false
+  }
+]
