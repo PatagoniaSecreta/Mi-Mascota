@@ -1,0 +1,33 @@
+{
+  "name": "Mi Mascota",
+  "short_name": "Mi Mascota",
+  "description": "App para dueños de perros y gatos. Dr. Pata IA, vacunas, alimentación y emergencias.",
+  "start_url": "/Mi-Mascota/",
+  "scope": "/Mi-Mascota/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#284F1E",
+  "theme_color": "#5C8A3C",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icono-mimascota-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icono-mimascota-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icono-mimascota-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["lifestyle", "health", "pets"]
+}
