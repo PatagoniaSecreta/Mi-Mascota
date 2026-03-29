@@ -1,845 +1,914 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#5C8A3C">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>Mi Mascota</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{
-  --verde:#5C8A3C;--verde2:#7AB54A;--verde3:#A8D070;
-  --tierra:#8B6340;--tierra2:#B8865A;
-  --beige:#F5EDD8;--beige2:#EDE0C4;--beige3:#D4C4A0;
-  --oscuro:#2C2416;--texto:#3D2E1A;
-  --blanco:#FDFAF4;
-}
-body{font-family:'Lato',sans-serif;background:var(--beige);color:var(--texto);max-width:480px;margin:0 auto;overflow-x:hidden;}
-.page-wrapper{padding-bottom:80px;min-height:100vh;}
-.screen{display:none;}.screen.active{display:block;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Mascota 🐾</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <link rel="apple-touch-icon" href="icono-mimascota-192.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* CACHORROS */
-.cachorros-header{background:linear-gradient(135deg,#6B4226,#A0522D);padding:18px 16px 55px;position:relative;overflow:hidden;}
-.cachorros-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--beige);border-radius:30px 30px 0 0;}
-.cachorros-content{padding:0 16px;margin-top:-20px;position:relative;z-index:5;}
-.publicar-banner{background:linear-gradient(135deg,var(--verde),var(--verde2));border-radius:14px;padding:14px;margin-bottom:14px;color:white;display:flex;align-items:center;gap:12px;}
-.publicar-banner-text{flex:1;font-size:0.78rem;line-height:1.5;}
-.publicar-banner-btn{background:white;color:var(--verde);border:none;border-radius:50px;padding:8px 14px;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.cachorro-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,0.1);margin-bottom:14px;}
-.cachorro-card.destacado{border:2px solid #FFD700;}
-.destacado-badge{background:#FFD700;color:#5C3D00;font-size:0.62rem;font-weight:700;padding:3px 10px;display:inline-block;}
-.cachorro-foto{height:200px;position:relative;overflow:hidden;background:#eee;}
-.cachorro-foto img{width:100%;height:100%;object-fit:cover;}
-.cachorro-info{padding:14px;}
-.cachorro-raza{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--oscuro);margin-bottom:4px;}
-.cachorro-criador{font-size:0.72rem;color:#888;margin-bottom:8px;}
-.cachorro-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
-.cachorro-tag{background:var(--beige);border-radius:20px;padding:4px 10px;font-size:0.65rem;font-weight:700;color:var(--tierra);}
-.cachorro-precio{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--verde);margin-bottom:10px;}
-.cachorro-desc{font-size:0.78rem;color:#666;line-height:1.6;margin-bottom:12px;}
-.padres-section{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.padre-card{border-radius:10px;overflow:hidden;position:relative;}
-.padre-foto{height:80px;object-fit:cover;width:100%;}
-.padre-label{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.55);color:white;font-size:0.62rem;font-weight:700;padding:3px 8px;text-align:center;}
-.contactar-btn{background:linear-gradient(135deg,#25D366,#128C7E);border:none;border-radius:50px;padding:12px;width:100%;font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
-.no-cachorros{text-align:center;padding:30px 20px;color:#aaa;font-size:0.82rem;line-height:1.8;}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
 
-/* BOTTOM NAV */
-#bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:white;border-top:2px solid var(--beige2);display:flex;justify-content:space-around;padding:10px 0 14px;z-index:50;box-shadow:0 -4px 16px rgba(0,0,0,0.08);}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:0 8px;}
-.nav-icon{font-size:1.3rem;}
-.nav-label{font-size:0.55rem;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
-.nav-item.active .nav-label{color:var(--verde);}
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-/* WELCOME */
-#screen-welcome{min-height:100vh;background:linear-gradient(160deg,var(--verde) 0%,var(--verde2) 50%,var(--tierra) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center;position:relative;overflow:hidden;}
-#screen-welcome::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='15'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
-.welcome-logo{font-size:5rem;margin-bottom:12px;position:relative;z-index:1;}
-.welcome-title{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:white;margin-bottom:8px;position:relative;z-index:1;text-shadow:0 2px 20px rgba(0,0,0,0.2);}
-.welcome-sub{font-size:0.88rem;color:rgba(255,255,255,0.85);margin-bottom:32px;line-height:1.6;position:relative;z-index:1;}
-.welcome-card{background:white;border-radius:20px;padding:22px;width:100%;max-width:340px;box-shadow:0 8px 30px rgba(0,0,0,0.15);position:relative;z-index:1;}
-.welcome-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--oscuro);margin-bottom:16px;}
-.form-group{margin-bottom:14px;text-align:left;}
-.form-label{font-size:0.72rem;font-weight:700;color:var(--tierra);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;display:block;}
-.form-input{width:100%;background:var(--beige);border:2px solid var(--beige2);border-radius:12px;padding:11px 14px;font-family:'Lato',sans-serif;font-size:0.9rem;color:var(--oscuro);outline:none;transition:border-color 0.2s;}
-.form-input:focus{border-color:var(--verde2);}
-.form-select{width:100%;background:var(--beige);border:2px solid var(--beige2);border-radius:12px;padding:11px 14px;font-family:'Lato',sans-serif;font-size:0.9rem;color:var(--oscuro);outline:none;appearance:none;}
-.species-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
-.species-btn{background:var(--beige);border:2px solid var(--beige2);border-radius:14px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;}
-.species-btn.selected{background:var(--verde);border-color:var(--verde);color:white;}
-.species-btn.selected .species-emoji{filter:none;}
-.species-emoji{font-size:2.2rem;display:block;margin-bottom:4px;}
-.species-label{font-size:0.72rem;font-weight:700;color:var(--oscuro);}
-.species-btn.selected .species-label{color:white;}
-.welcome-btn{width:100%;background:linear-gradient(135deg,var(--verde),var(--verde2));border:none;border-radius:50px;padding:14px;font-family:'Lato',sans-serif;font-size:0.95rem;font-weight:700;color:white;cursor:pointer;margin-top:6px;box-shadow:0 4px 15px rgba(92,138,60,0.35);}
+        .header {
+            text-align: center;
+            color: white;
+            padding: 20px 0;
+        }
 
-/* HOME */
-.home-header{background:linear-gradient(135deg,var(--verde),var(--verde2));padding:24px 20px 70px;position:relative;overflow:hidden;}
-.home-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:var(--beige);border-radius:40px 40px 0 0;}
-.pet-profile-card{background:white;border-radius:20px;margin:0 16px;margin-top:-50px;position:relative;z-index:10;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,0.1);display:flex;align-items:center;gap:14px;}
-.pet-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--verde3),var(--verde2));display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0;border:3px solid var(--beige2);}
-.pet-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--oscuro);}
-.pet-breed{font-size:0.72rem;color:#aaa;margin-top:2px;}
-.pet-age{font-size:0.72rem;color:var(--verde);font-weight:700;margin-top:3px;}
-.edit-pet-btn{background:var(--beige);border:none;border-radius:50%;width:32px;height:32px;font-size:0.9rem;cursor:pointer;margin-left:auto;flex-shrink:0;}
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
 
-.quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px;}
-.qa-btn{background:white;border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.06);border-bottom:3px solid var(--beige2);transition:transform 0.2s;}
-.qa-btn:active{transform:scale(0.96);}
-.qa-icon{font-size:1.8rem;margin-bottom:5px;}
-.qa-label{font-size:0.62rem;font-weight:700;color:var(--texto);line-height:1.3;}
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
 
-.home-section{padding:0 16px 14px;}
-.section-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--oscuro);margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid var(--beige2);}
+        .tabs {
+            display: flex;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
 
-/* RECORDATORIOS */
-.reminder-card{background:white;border-radius:14px;padding:13px;margin-bottom:9px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.reminder-icon{font-size:1.5rem;flex-shrink:0;}
-.reminder-name{font-size:0.82rem;font-weight:700;color:var(--oscuro);}
-.reminder-date{font-size:0.65rem;color:#aaa;margin-top:2px;}
-.reminder-status{font-size:0.62rem;font-weight:700;padding:3px 8px;border-radius:20px;margin-left:auto;white-space:nowrap;flex-shrink:0;}
-.status-ok{background:#E8F5E9;color:#2E7D32;}
-.status-pronto{background:#FFF3E0;color:#E65100;}
-.status-vencido{background:#FFEBEE;color:#C62828;}
-.add-btn{background:linear-gradient(135deg,var(--verde),var(--verde2));border:none;border-radius:50px;padding:10px 18px;font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:700;color:white;cursor:pointer;display:flex;align-items:center;gap:6px;margin-top:6px;}
+        .tab {
+            flex: 1;
+            padding: 12px 10px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
 
-/* IA CHAT */
-.ia-header{background:linear-gradient(135deg,var(--tierra),var(--tierra2));padding:18px 16px 55px;position:relative;overflow:hidden;}
-.ia-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--beige);border-radius:30px 30px 0 0;}
-.ia-chat-wrap{padding:0 16px;margin-top:-30px;position:relative;z-index:5;}
-.ia-intro-card{background:white;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(0,0,0,0.08);display:flex;align-items:center;gap:12px;}
-.ia-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--tierra),var(--tierra2));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
-.ia-name{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:var(--oscuro);}
-.ia-desc{font-size:0.65rem;color:#aaa;margin-top:2px;}
-.ia-online{font-size:0.6rem;color:var(--verde);font-weight:700;}
+        .tab.active {
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+        }
 
-.ia-messages{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;max-height:380px;overflow-y:auto;scrollbar-width:none;}
-.ia-messages::-webkit-scrollbar{display:none;}
-.ia-msg{display:flex;gap:8px;max-width:88%;}
-.ia-msg.user{align-self:flex-end;flex-direction:row-reverse;}
-.ia-msg-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--tierra),var(--tierra2));display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;align-self:flex-end;}
-.ia-bubble{background:white;border:1px solid var(--beige2);border-radius:16px 16px 16px 4px;padding:10px 13px;font-size:0.83rem;line-height:1.6;color:var(--texto);}
-.ia-msg.user .ia-bubble{background:linear-gradient(135deg,var(--verde),var(--verde2));border:none;border-radius:16px 16px 4px 16px;color:white;}
-.ia-time{font-size:0.55rem;color:#bbb;margin-top:2px;text-align:right;}
-.ia-typing{display:flex;gap:4px;align-items:center;padding:10px 13px;background:white;border-radius:16px;width:fit-content;}
-.ia-typing span{width:6px;height:6px;border-radius:50%;background:var(--tierra2);animation:bounce 1.2s ease-in-out infinite;}
-.ia-typing span:nth-child(2){animation-delay:0.2s;}
-.ia-typing span:nth-child(3){animation-delay:0.4s;}
-@keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+        .section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
 
-.ia-input-wrap{display:flex;gap:8px;align-items:center;}
-.ia-input{flex:1;background:white;border:2px solid var(--beige2);border-radius:25px;padding:10px 15px;font-family:'Lato',sans-serif;font-size:0.87rem;color:var(--oscuro);outline:none;resize:none;}
-.ia-input:focus{border-color:var(--verde2);}
-.ia-send-btn{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--verde2));border:none;cursor:pointer;font-size:1rem;flex-shrink:0;}
+        .section.active {
+            display: block;
+        }
 
-.quick-questions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
-.qq-btn{background:var(--beige);border:1px solid var(--beige3);border-radius:20px;padding:6px 12px;font-size:0.68rem;font-weight:700;color:var(--tierra);cursor:pointer;white-space:nowrap;}
+        /* DR. PATA SECTION */
+        .dr-pata-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
 
-/* LIBRETA */
-.libreta-header{background:linear-gradient(135deg,#4A7A5A,#6B9E7A);padding:18px 16px 55px;position:relative;overflow:hidden;}
-.libreta-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--beige);border-radius:30px 30px 0 0;}
-.libreta-content{padding:0 16px;margin-top:-20px;position:relative;z-index:5;}
-.vacuna-card{background:white;border-radius:14px;padding:13px 15px;margin-bottom:9px;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.vacuna-name{font-size:0.82rem;font-weight:700;color:var(--oscuro);}
-.vacuna-date{font-size:0.65rem;color:#aaa;margin-top:2px;}
-.vacuna-prox{font-size:0.62rem;color:var(--verde);font-weight:700;margin-top:1px;}
-.vacuna-badge{font-size:1.4rem;}
-.add-vacuna-card{background:white;border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:12px;}
-.add-vacuna-title{font-size:0.78rem;font-weight:700;color:var(--oscuro);margin-bottom:10px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+        .dr-pata-avatar {
+            font-size: 100px;
+            margin-bottom: 15px;
+        }
 
-/* ALIMENTACION */
-.alim-header{background:linear-gradient(135deg,#8B6340,#C4874A);padding:18px 16px 55px;position:relative;overflow:hidden;}
-.alim-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--beige);border-radius:30px 30px 0 0;}
-.alim-content{padding:0 16px;margin-top:-20px;position:relative;z-index:5;}
-.alim-toggle{display:flex;gap:8px;margin-bottom:14px;}
-.alim-tab{flex:1;background:white;border:2px solid var(--beige2);border-radius:25px;padding:9px;text-align:center;font-size:0.75rem;font-weight:700;cursor:pointer;color:#888;}
-.alim-tab.active{background:var(--tierra);border-color:var(--tierra);color:white;}
-.alim-list{display:flex;flex-direction:column;gap:8px;}
-.alim-item{background:white;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
-.alim-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.dot-ok{background:#4CAF50;}.dot-no{background:#F44336;}.dot-mod{background:#FF9800;}
-.alim-name{font-size:0.82rem;font-weight:700;color:var(--oscuro);}
-.alim-desc{font-size:0.65rem;color:#aaa;margin-top:1px;}
+        .dr-pata-hero h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
 
-/* ADIESTRAMIENTO */
-.adiest-header{background:linear-gradient(135deg,#4A6B8A,#6B8BAA);padding:18px 16px 55px;position:relative;overflow:hidden;}
-.adiest-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--beige);border-radius:30px 30px 0 0;}
-.adiest-content{padding:0 16px;margin-top:-20px;position:relative;z-index:5;}
-.truco-card{background:white;border-radius:14px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.truco-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
-.truco-name{font-size:0.85rem;font-weight:700;color:var(--oscuro);display:flex;align-items:center;gap:8px;}
-.truco-level{font-size:0.6rem;padding:2px 8px;border-radius:20px;font-weight:700;}
-.nivel-basico{background:#E8F5E9;color:#2E7D32;}
-.nivel-medio{background:#FFF3E0;color:#E65100;}
-.nivel-avanzado{background:#FFEBEE;color:#C62828;}
-.truco-expand{color:#ccc;font-size:1rem;transition:transform 0.2s;}
-.truco-expand.open{transform:rotate(180deg);}
-.truco-body{display:none;padding:0 14px 14px;border-top:1px solid var(--beige2);}
-.truco-body.open{display:block;}
-.truco-step{display:flex;gap:8px;margin-bottom:7px;font-size:0.75rem;color:#666;line-height:1.5;}
-.step-circle{width:20px;height:20px;border-radius:50%;background:var(--verde);color:white;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;margin-top:1px;}
+        .dr-pata-hero p {
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
 
-/* EMERGENCIAS */
-.emerg-header{background:linear-gradient(135deg,#8B2020,#C43030);padding:18px 16px 55px;position:relative;overflow:hidden;}
-.emerg-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--beige);border-radius:30px 30px 0 0;}
-.emerg-content{padding:0 16px;margin-top:-20px;position:relative;z-index:5;}
-.emerg-card{background:white;border-radius:14px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.emerg-card-header{padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
-.emerg-name{font-size:0.85rem;font-weight:700;color:var(--oscuro);display:flex;align-items:center;gap:8px;}
-.emerg-urgencia{font-size:0.6rem;padding:2px 8px;border-radius:20px;font-weight:700;}
-.urg-alta{background:#FFEBEE;color:#C62828;}
-.urg-media{background:#FFF3E0;color:#E65100;}
-.emerg-body{display:none;padding:0 14px 14px;border-top:1px solid var(--beige2);}
-.emerg-body.open{display:block;}
-.emerg-paso{display:flex;gap:8px;margin-bottom:7px;font-size:0.75rem;color:#555;line-height:1.5;}
-.emerg-num{width:20px;height:20px;border-radius:50%;background:#C43030;color:white;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;margin-top:1px;}
-.emerg-alerta{background:#FFEBEE;border-radius:10px;padding:10px;font-size:0.73rem;color:#C62828;margin-top:8px;font-weight:700;}
+        .btn-principal {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
 
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;align-items:flex-end;justify-content:center;}
-.modal-bg.open{display:flex;}
-.modal-card{background:var(--beige);border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:480px;}
-.modal-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--oscuro);margin-bottom:14px;}
-.modal-close-btn{background:linear-gradient(135deg,var(--verde),var(--verde2));border:none;border-radius:50px;padding:12px;width:100%;cursor:pointer;font-family:'Lato',sans-serif;font-size:0.88rem;font-weight:700;color:white;margin-top:8px;}
-</style>
+        .btn-principal:active {
+            transform: scale(0.95);
+        }
 
-<!-- WELCOME -->
-<div id="screen-welcome" class="screen active">
-  <div class="welcome-logo">🐾</div>
-  <div class="welcome-title">Mi Mascota</div>
-  <div class="welcome-sub">Todo lo que necesitás para cuidar a tu compañero peludo 🐕🐱</div>
-  <div class="welcome-card">
-    <div class="welcome-card-title">¿Quién es tu mascota?</div>
-    <div class="form-group">
-      <label class="form-label">Tipo de mascota</label>
-      <div class="species-grid">
-        <div class="species-btn selected" id="sp-perro" onclick="selectSpecies('perro',this)">
-          <span class="species-emoji">🐕</span>
-          <span class="species-label">Perro</span>
+        .consultas-rapidas {
+            margin-top: 25px;
+        }
+
+        .consultas-rapidas h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .btn-rapido {
+            background: #f0f0f0;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin: 5px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-rapido:active {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-emergencia {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-emergencia:active {
+            background: #e84118;
+        }
+
+        /* LIBRETA SANITARIA */
+        .vacuna-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .vacuna-item h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .vacuna-item p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .btn-agregar {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* ALIMENTACIÓN */
+        .alimento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .alimento-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .alimento-card.puede {
+            border: 3px solid #2ecc71;
+        }
+
+        .alimento-card.no-puede {
+            border: 3px solid #e74c3c;
+        }
+
+        .alimento-card.moderado {
+            border: 3px solid #f39c12;
+        }
+
+        .alimento-card .emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .alimento-card .nombre {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .alimento-card .estado {
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .puede .estado {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .no-puede .estado {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .moderado .estado {
+            background: #f39c12;
+            color: white;
+        }
+
+        /* ADIESTRAMIENTO */
+        .truco-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .truco-card:active {
+            transform: scale(0.98);
+            background: #667eea;
+            color: white;
+        }
+
+        .truco-card h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .truco-card .nivel {
+            font-size: 12px;
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        /* EMERGENCIAS */
+        .emergencia-card {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .emergencia-card h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .emergencia-card ol {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .emergencia-card ol li {
+            margin-bottom: 8px;
+        }
+
+        /* CACHORROS */
+        .cachorro-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .cachorro-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cachorro-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .cachorro-card .info {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .cachorro-card .precio {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .btn-contacto {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        h3 {
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="header">
+            <h1>🐾 Mi Mascota</h1>
+            <p>Todo lo que necesitás para cuidar a tu mejor amigo</p>
         </div>
-        <div class="species-btn" id="sp-gato" onclick="selectSpecies('gato',this)">
-          <span class="species-emoji">🐱</span>
-          <span class="species-label">Gato</span>
+
+        <div class="tabs">
+            <button class="tab active" onclick="cambiarSeccion('dr-pata')">🩺 Dr. Pata</button>
+            <button class="tab" onclick="cambiarSeccion('libreta')">💉 Libreta</button>
+            <button class="tab" onclick="cambiarSeccion('alimentacion')">🍖 Comida</button>
+            <button class="tab" onclick="cambiarSeccion('adiestramiento')">🎓 Trucos</button>
+            <button class="tab" onclick="cambiarSeccion('emergencias')">🆘 S.O.S</button>
+            <button class="tab" onclick="cambiarSeccion('cachorros')">🐕 Cachorros</button>
         </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Nombre</label>
-      <input type="text" class="form-input" id="pet-name" placeholder="¿Cómo se llama?" maxlength="20"/>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Raza</label>
-      <input type="text" class="form-input" id="pet-breed" placeholder="Ej: Dogo Argentino"/>
-    </div>
-    <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div class="form-group" style="margin:0;">
-        <label class="form-label">Fecha de nacimiento</label>
-        <input type="date" class="form-input" id="pet-birth"/>
-      </div>
-      <div class="form-group" style="margin:0;">
-        <label class="form-label">Sexo</label>
-        <select class="form-select" id="pet-sex">
-          <option value="macho">Macho</option>
-          <option value="hembra">Hembra</option>
-        </select>
-      </div>
-    </div>
-    <button class="welcome-btn" onclick="savePet()">¡Empezar! 🐾</button>
-  </div>
-</div>
 
-<!-- HOME -->
-<div id="screen-home" class="screen">
-  <div class="page-wrapper">
-    <div class="home-header">
-      <div style="color:rgba(255,255,255,0.8);font-size:0.72rem;margin-bottom:4px;">🐾 MI MASCOTA</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:white;">¡Hola! 👋</div>
-    </div>
-    <div class="pet-profile-card">
-      <div class="pet-avatar" id="home-avatar">🐕</div>
-      <div>
-        <div class="pet-name" id="home-name">---</div>
-        <div class="pet-breed" id="home-breed">---</div>
-        <div class="pet-age" id="home-age">---</div>
-      </div>
-      <button class="edit-pet-btn" onclick="editPet()">✏️</button>
-    </div>
-    <div class="quick-actions">
-      <div class="qa-btn" onclick="showScreen('ia',this,'nav-ia')">
-        <div class="qa-icon">🤖</div>
-        <div class="qa-label">IA Veterinaria</div>
-      </div>
-      <div class="qa-btn" onclick="showScreen('libreta',this,'nav-lib')">
-        <div class="qa-icon">💉</div>
-        <div class="qa-label">Libreta Sanitaria</div>
-      </div>
-      <div class="qa-btn" onclick="showScreen('alimentacion',this,'nav-alim')">
-        <div class="qa-icon">🍖</div>
-        <div class="qa-label">Alimentación</div>
-      </div>
-      <div class="qa-btn" onclick="showScreen('adiestramiento',this,'nav-adiest')">
-        <div class="qa-icon">🎓</div>
-        <div class="qa-label">Adiestramiento</div>
-      </div>
-      <div class="qa-btn" onclick="showScreen('emergencias',this,'nav-emerg')">
-        <div class="qa-icon">🆘</div>
-        <div class="qa-label">Emergencias</div>
-      </div>
-      <div class="qa-btn" onclick="showScreen('home',this,'nav-home')">
-        <div class="qa-icon">📊</div>
-        <div class="qa-label">Mi Perfil</div>
-      </div>
-    </div>
-    <div class="home-section">
-      <div class="section-title">📅 Próximos recordatorios</div>
-      <div id="home-reminders"></div>
-    </div>
-  </div>
-</div>
+        <!-- SECCIÓN DR. PATA -->
+        <div id="dr-pata" class="section active">
+            <div class="dr-pata-hero">
+                <div class="dr-pata-avatar">🩺</div>
+                <h2>Dr. Pata</h2>
+                <p>
+                    Tu veterinario virtual con Inteligencia Artificial.<br>
+                    Consultá sobre salud, alimentación, comportamiento<br>
+                    y todo lo que necesités saber sobre tu mascota.
+                </p>
+                <button class="btn-principal" onclick="consultarDrPata()">
+                    💬 Hacer una Consulta
+                </button>
+            </div>
 
-<!-- IA VETERINARIA -->
-<div id="screen-ia" class="screen">
-  <div class="page-wrapper">
-    <div class="ia-header">
-      <div style="color:rgba(255,255,255,0.8);font-size:0.72rem;margin-bottom:6px;">🤖 IA VETERINARIA</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:white;">Dr. Pata 🐾</div>
-      <div style="font-size:0.75rem;color:rgba(255,255,255,0.8);">Tu veterinario virtual disponible 24/7</div>
-    </div>
-    <div class="ia-chat-wrap">
-      <div class="ia-intro-card">
-        <div class="ia-avatar">🐾</div>
-        <div>
-          <div class="ia-name">Dr. Pata</div>
-          <div class="ia-desc">Especialista en perros y gatos</div>
-          <div class="ia-online">● En línea ahora</div>
+            <div class="consultas-rapidas">
+                <h3>🔥 Consultas Frecuentes</h3>
+                <button class="btn-rapido" onclick="preguntaRapida('Mi perro vomitó, ¿qué hago?')">
+                    🤮 Vómitos
+                </button>
+                <button class="btn-rapido" onclick="preguntaRapida('¿Qué vacunas necesita un cachorro?')">
+                    💉 Vacunas
+                </button>
+                <button class="btn-rapido" onclick="preguntaRapida('Mi gato no come bien')">
+                    🍽️ Falta de apetito
+                </button>
+                <button class="btn-rapido" onclick="preguntaRapida('¿Qué puede comer mi perro?')">
+                    🍖 Alimentación
+                </button>
+                <button class="btn-rapido" onclick="preguntaRapida('Mi mascota tiene diarrea')">
+                    💩 Diarrea
+                </button>
+                <button class="btn-rapido" onclick="preguntaRapida('¿Cómo educar a un cachorro?')">
+                    🎓 Adiestramiento
+                </button>
+                <button class="btn-rapido" onclick="preguntaRapida('Mi perro se rasca mucho')">
+                    🐛 Parásitos
+                </button>
+                <button class="btn-rapido" onclick="preguntaRapida('¿Cada cuánto bañar a mi perro?')">
+                    🛁 Higiene
+                </button>
+                
+                <button class="btn-emergencia" onclick="emergencia()">
+                    🚨 EMERGENCIA VETERINARIA
+                </button>
+            </div>
         </div>
-      </div>
-      <div class="quick-questions" id="quick-questions">
-        <button class="qq-btn" onclick="sendQuick(this.textContent)">¿Qué no puede comer?</button>
-        <button class="qq-btn" onclick="sendQuick(this.textContent)">¿Cuándo vacunar?</button>
-        <button class="qq-btn" onclick="sendQuick(this.textContent)">¿Cuánto ejercicio necesita?</button>
-        <button class="qq-btn" onclick="sendQuick(this.textContent)">Síntomas de enfermedad</button>
-      </div>
-      <div class="ia-messages" id="ia-messages"></div>
-      <div class="ia-input-wrap">
-        <textarea class="ia-input" id="ia-input" placeholder="Preguntale al Dr. Pata..." rows="1" onkeydown="handleIaKey(event)" oninput="autoResizeIa(this)"></textarea>
-        <button class="ia-send-btn" onclick="sendIaMessage()">➤</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- LIBRETA SANITARIA -->
-<div id="screen-libreta" class="screen">
-  <div class="page-wrapper">
-    <div class="libreta-header">
-      <div style="color:rgba(255,255,255,0.8);font-size:0.72rem;margin-bottom:6px;">💉 LIBRETA SANITARIA</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:white;" id="lib-title">Historial de Vacunas</div>
-    </div>
-    <div class="libreta-content">
-      <div class="add-vacuna-card">
-        <div class="add-vacuna-title">➕ Agregar vacuna o tratamiento</div>
-        <div class="form-group" style="margin-bottom:8px;">
-          <label class="form-label">Nombre</label>
-          <input type="text" class="form-input" id="vac-name" placeholder="Ej: Antirrábica, Desparasitación..."/>
+        <!-- SECCIÓN LIBRETA SANITARIA -->
+        <div id="libreta" class="section">
+            <h2>💉 Libreta Sanitaria</h2>
+            
+            <div class="input-group">
+                <label>Nombre de la vacuna:</label>
+                <select id="vacuna-nombre">
+                    <option value="Antirrábica">Antirrábica</option>
+                    <option value="Séxtuple/Óctuple">Séxtuple/Óctuple</option>
+                    <option value="Parvovirus">Parvovirus</option>
+                    <option value="Moquillo">Moquillo</option>
+                    <option value="Tos de las perreras">Tos de las perreras</option>
+                    <option value="Desparasitación">Desparasitación</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label>Fecha aplicada:</label>
+                <input type="date" id="vacuna-fecha">
+            </div>
+            
+            <div class="input-group">
+                <label>Próxima dosis (opcional):</label>
+                <input type="date" id="vacuna-proxima">
+            </div>
+            
+            <button class="btn-agregar" onclick="agregarVacuna()">➕ Agregar Vacuna</button>
+
+            <h3>📋 Registro de Vacunas</h3>
+            <div id="lista-vacunas"></div>
         </div>
-        <div class="form-row">
-          <div>
-            <label class="form-label">Fecha aplicada</label>
-            <input type="date" class="form-input" id="vac-date"/>
-          </div>
-          <div>
-            <label class="form-label">Próxima dosis</label>
-            <input type="date" class="form-input" id="vac-next"/>
-          </div>
+
+        <!-- SECCIÓN ALIMENTACIÓN -->
+        <div id="alimentacion" class="section">
+            <h2>🍖 Alimentación</h2>
+            <p style="color: #666; margin-bottom: 20px;">Alimentos clasificados según seguridad para perros y gatos</p>
+            
+            <h3>✅ PUEDE COMER</h3>
+            <div class="alimento-grid">
+                <div class="alimento-card puede">
+                    <div class="emoji">🍗</div>
+                    <div class="nombre">Pollo</div>
+                    <div class="estado">Seguro</div>
+                </div>
+                <div class="alimento-card puede">
+                    <div class="emoji">🥩</div>
+                    <div class="nombre">Carne magra</div>
+                    <div class="estado">Seguro</div>
+                </div>
+                <div class="alimento-card puede">
+                    <div class="emoji">🥕</div>
+                    <div class="nombre">Zanahoria</div>
+                    <div class="estado">Seguro</div>
+                </div>
+                <div class="alimento-card puede">
+                    <div class="emoji">🍎</div>
+                    <div class="nombre">Manzana</div>
+                    <div class="estado">Seguro</div>
+                </div>
+                <div class="alimento-card puede">
+                    <div class="emoji">🥚</div>
+                    <div class="nombre">Huevo cocido</div>
+                    <div class="estado">Seguro</div>
+                </div>
+                <div class="alimento-card puede">
+                    <div class="emoji">🐟</div>
+                    <div class="nombre">Pescado</div>
+                    <div class="estado">Seguro</div>
+                </div>
+            </div>
+
+            <h3>⚠️ CON MODERACIÓN</h3>
+            <div class="alimento-grid">
+                <div class="alimento-card moderado">
+                    <div class="emoji">🧀</div>
+                    <div class="nombre">Queso</div>
+                    <div class="estado">Moderado</div>
+                </div>
+                <div class="alimento-card moderado">
+                    <div class="emoji">🍌</div>
+                    <div class="nombre">Banana</div>
+                    <div class="estado">Moderado</div>
+                </div>
+                <div class="alimento-card moderado">
+                    <div class="emoji">🍞</div>
+                    <div class="nombre">Pan</div>
+                    <div class="estado">Moderado</div>
+                </div>
+            </div>
+
+            <h3>❌ NO DEBE COMER</h3>
+            <div class="alimento-grid">
+                <div class="alimento-card no-puede">
+                    <div class="emoji">🍫</div>
+                    <div class="nombre">Chocolate</div>
+                    <div class="estado">TÓXICO</div>
+                </div>
+                <div class="alimento-card no-puede">
+                    <div class="emoji">🧅</div>
+                    <div class="nombre">Cebolla</div>
+                    <div class="estado">TÓXICO</div>
+                </div>
+                <div class="alimento-card no-puede">
+                    <div class="emoji">🧄</div>
+                    <div class="nombre">Ajo</div>
+                    <div class="estado">TÓXICO</div>
+                </div>
+                <div class="alimento-card no-puede">
+                    <div class="emoji">🍇</div>
+                    <div class="nombre">Uvas</div>
+                    <div class="estado">TÓXICO</div>
+                </div>
+                <div class="alimento-card no-puede">
+                    <div class="emoji">🥑</div>
+                    <div class="nombre">Aguacate</div>
+                    <div class="estado">TÓXICO</div>
+                </div>
+                <div class="alimento-card no-puede">
+                    <div class="emoji">☕</div>
+                    <div class="nombre">Café</div>
+                    <div class="estado">TÓXICO</div>
+                </div>
+            </div>
         </div>
-        <button class="add-btn" onclick="addVacuna()">💉 Agregar</button>
-      </div>
-      <div class="section-title">Historial completo</div>
-      <div id="vacunas-list"></div>
-    </div>
-  </div>
-</div>
 
-<!-- ALIMENTACION -->
-<div id="screen-alimentacion" class="screen">
-  <div class="page-wrapper">
-    <div class="alim-header">
-      <div style="color:rgba(255,255,255,0.8);font-size:0.72rem;margin-bottom:6px;">🍖 ALIMENTACIÓN</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:white;" id="alim-title">¿Qué puede comer?</div>
-    </div>
-    <div class="alim-content">
-      <div class="alim-toggle">
-        <div class="alim-tab active" onclick="setAlimTab('puede',this)">✅ Puede comer</div>
-        <div class="alim-tab" onclick="setAlimTab('no-puede',this)">❌ No puede comer</div>
-        <div class="alim-tab" onclick="setAlimTab('moderado',this)">⚠️ Con moderación</div>
-      </div>
-      <div class="alim-list" id="alim-list"></div>
-    </div>
-  </div>
-</div>
+        <!-- SECCIÓN ADIESTRAMIENTO -->
+        <div id="adiestramiento" class="section">
+            <h2>🎓 Adiestramiento</h2>
+            <p style="color: #666; margin-bottom: 20px;">Trucos básicos paso a paso</p>
+            
+            <div class="truco-card" onclick="mostrarTruco('sentado')">
+                <h4>🪑 Sentado</h4>
+                <span class="nivel">Básico</span>
+                <p style="margin-top: 10px; color: #666;">El comando fundamental para cualquier perro</p>
+            </div>
 
-<!-- ADIESTRAMIENTO -->
-<div id="screen-adiestramiento" class="screen">
-  <div class="page-wrapper">
-    <div class="adiest-header">
-      <div style="color:rgba(255,255,255,0.8);font-size:0.72rem;margin-bottom:6px;">🎓 ADIESTRAMIENTO</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:white;" id="adiest-title">Trucos y comandos</div>
-    </div>
-    <div class="adiest-content">
-      <div style="background:white;border-radius:14px;padding:12px;margin-bottom:14px;font-size:0.78rem;color:var(--texto);line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-        💡 <strong>Consejo:</strong> Siempre usá refuerzo positivo — premios y elogios. Nunca castigos. Las sesiones de 5-10 minutos son más efectivas.
-      </div>
-      <div id="trucos-list"></div>
-    </div>
-  </div>
-</div>
+            <div class="truco-card" onclick="mostrarTruco('echado')">
+                <h4>🛏️ Echado</h4>
+                <span class="nivel">Básico</span>
+                <p style="margin-top: 10px; color: #666;">Enseñale a acostarse a la orden</p>
+            </div>
 
-<!-- EMERGENCIAS -->
-<div id="screen-emergencias" class="screen">
-  <div class="page-wrapper">
-    <div class="emerg-header">
-      <div style="color:rgba(255,255,255,0.8);font-size:0.72rem;margin-bottom:6px;">🆘 EMERGENCIAS</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:white;">Qué hacer en cada caso</div>
-      <div style="font-size:0.75rem;color:rgba(255,255,255,0.8);">⚠️ Ante cualquier duda, ir al veterinario</div>
-    </div>
-    <div class="emerg-content">
-      <div style="background:#FFEBEE;border-radius:14px;padding:13px;margin-bottom:14px;font-size:0.78rem;color:#C62828;font-weight:700;display:flex;gap:10px;align-items:center;">
-        <span style="font-size:1.5rem;">🚨</span>
-        <span>En caso de emergencia grave, llevá a tu mascota al veterinario MÁS CERCANO de inmediato.</span>
-      </div>
-      <div id="emergencias-list"></div>
-    </div>
-  </div>
-</div>
+            <div class="truco-card" onclick="mostrarTruco('quieto')">
+                <h4>✋ Quieto</h4>
+                <span class="nivel">Intermedio</span>
+                <p style="margin-top: 10px; color: #666;">Control e impulso, muy importante</p>
+            </div>
 
-<!-- CACHORROS DISPONIBLES -->
-<div id="screen-cachorros" class="screen">
-  <div class="page-wrapper">
-    <div class="cachorros-header">
-      <div style="color:rgba(255,255,255,0.8);font-size:0.72rem;margin-bottom:6px;">🐾 MI MASCOTA</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:white;">🐕 Cachorros Disponibles</div>
-      <div style="font-size:0.75rem;color:rgba(255,255,255,0.8);">Encontrá tu compañero perfecto</div>
-    </div>
-    <div class="cachorros-content">
-      <div class="publicar-banner">
-        <div style="font-size:2rem;">📢</div>
-        <div class="publicar-banner-text">
-          <strong>¿Tenés cachorros para vender?</strong><br>
-          Publicá en la app y llegá a miles de personas. ¡Contactanos!
+            <div class="truco-card" onclick="mostrarTruco('pata')">
+                <h4>🤝 Dame la pata</h4>
+                <span class="nivel">Básico</span>
+                <p style="margin-top: 10px; color: #666;">El clásico saludo canino</p>
+            </div>
+
+            <div class="truco-card" onclick="mostrarTruco('venir')">
+                <h4>📣 Vení</h4>
+                <span class="nivel">Esencial</span>
+                <p style="margin-top: 10px; color: #666;">El comando más importante para la seguridad</p>
+            </div>
         </div>
-        <button class="publicar-banner-btn" onclick="window.open('https://wa.me/5492984307533?text=Hola!%20Quiero%20publicar%20mis%20cachorros%20en%20Mi%20Mascota%20App','_blank')">Publicar 💬</button>
-      </div>
-      <div id="cachorros-list"><div class="no-cachorros">⏳ Cargando cachorros disponibles...</div></div>
+
+        <!-- SECCIÓN EMERGENCIAS -->
+        <div id="emergencias" class="section">
+            <h2>🆘 Emergencias</h2>
+            
+            <div class="emergencia-card">
+                <h4>🤮 VÓMITOS O DIARREA SEVERA</h4>
+                <ol>
+                    <li>Retirá el alimento por 12-24 horas</li>
+                    <li>Dejá agua fresca disponible</li>
+                    <li>Si continúa más de 24hs, consultá veterinario</li>
+                    <li>Si hay sangre, acudí INMEDIATAMENTE</li>
+                </ol>
+            </div>
+
+            <div class="emergencia-card">
+                <h4>🐍 ENVENENAMIENTO</h4>
+                <ol>
+                    <li>NO induzcas el vómito</li>
+                    <li>Identificá la sustancia si es posible</li>
+                    <li>Llamá INMEDIATAMENTE al veterinario</li>
+                    <li>Llevá el envase del producto si lo hay</li>
+                </ol>
+            </div>
+
+            <div class="emergencia-card">
+                <h4>🩹 HERIDAS O SANGRADO</h4>
+                <ol>
+                    <li>Aplicá presión con gasa limpia</li>
+                    <li>Si es profundo, NO retires objetos clavados</li>
+                    <li>Mantené presión por 5-10 minutos</li>
+                    <li>Acudí al veterinario de urgencia</li>
+                </ol>
+            </div>
+
+            <div class="emergencia-card">
+                <h4>🌡️ GOLPE DE CALOR</h4>
+                <ol>
+                    <li>Llevá al animal a la sombra</li>
+                    <li>Aplicá agua FRESCA (no helada) en cabeza, cuello y pecho</li>
+                    <li>Ofrecé agua para beber en pequeñas cantidades</li>
+                    <li>Consultá veterinario urgente</li>
+                </ol>
+            </div>
+
+            <div class="emergencia-card">
+                <h4>⚡ CONVULSIONES</h4>
+                <ol>
+                    <li>NO intentes sujetarlo ni meterle nada en la boca</li>
+                    <li>Alejá objetos que puedan lastimarlo</li>
+                    <li>Apagá luces y reducí ruidos</li>
+                    <li>Cronometrá la duración</li>
+                    <li>Consultá veterinario inmediatamente</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- SECCIÓN CACHORROS DISPONIBLES -->
+        <div id="cachorros" class="section">
+            <h2>🐕 Cachorros Disponibles</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                ¿Querés publicar cachorros en venta o adopción? 
+                <strong>Contactanos por WhatsApp</strong>
+            </p>
+
+            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="color: #856404; margin-bottom: 10px;">💰 Publicá tus cachorros</h3>
+                <p style="color: #856404; margin-bottom: 15px;">
+                    Alcanzá miles de personas interesadas en adoptar o comprar mascotas.
+                    Publicación destacada por solo <strong>$5.000 pesos</strong> mensuales.
+                </p>
+                <button class="btn-contacto" onclick="contactarPublicacion()">
+                    📱 Contactar por WhatsApp
+                </button>
+            </div>
+
+            <!-- EJEMPLO DE CACHORRO PUBLICADO -->
+            <div class="cachorro-card">
+                <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400" alt="Cachorro Golden Retriever">
+                <h4>🐕 Golden Retriever</h4>
+                <p class="info">📍 Río Negro, Argentina</p>
+                <p class="info">🎂 2 meses</p>
+                <p class="info">💉 Primera vacuna aplicada</p>
+                <p class="info">📄 Pedigree disponible</p>
+                <div class="precio">$80.000</div>
+                <button class="btn-contacto" onclick="contactarVendedor('Golden Retriever')">
+                    📱 Contactar Vendedor
+                </button>
+            </div>
+
+        </div>
+
     </div>
-  </div>
-</div>
 
-<!-- BOTTOM NAV -->
-<div id="bottom-nav" style="display:none;">
-  <div class="nav-item active" id="nav-home" onclick="showScreen('home',this,'nav-home')"><div class="nav-icon">🏠</div><div class="nav-label">Inicio</div></div>
-  <div class="nav-item" id="nav-ia" onclick="showScreen('ia',this,'nav-ia')"><div class="nav-icon">🤖</div><div class="nav-label">Dr. Pata</div></div>
-  <div class="nav-item" id="nav-lib" onclick="showScreen('libreta',this,'nav-lib')"><div class="nav-icon">💉</div><div class="nav-label">Vacunas</div></div>
-  <div class="nav-item" id="nav-cachorros" onclick="showScreen('cachorros',this,'nav-cachorros')"><div class="nav-icon">🐕</div><div class="nav-label">Cachorros</div></div>
-  <div class="nav-item" id="nav-alim" onclick="showScreen('alimentacion',this,'nav-alim')"><div class="nav-icon">🍖</div><div class="nav-label">Alimentos</div></div>
-  <div class="nav-item" id="nav-emerg" onclick="showScreen('emergencias',this,'nav-emerg')"><div class="nav-icon">🆘</div><div class="nav-label">Urgencias</div></div>
-</div>
+    <script>
+        // CAMBIAR SECCIONES
+        function cambiarSeccion(seccion) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            // Mostrar sección seleccionada
+            document.getElementById(seccion).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-<!-- MODAL EDIT PET -->
-<div class="modal-bg" id="edit-modal">
-  <div class="modal-card">
-    <div class="modal-title">✏️ Editar mascota</div>
-    <div class="form-group">
-      <label class="form-label">Nombre</label>
-      <input type="text" class="form-input" id="edit-name" maxlength="20"/>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Raza</label>
-      <input type="text" class="form-input" id="edit-breed"/>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Fecha de nacimiento</label>
-      <input type="date" class="form-input" id="edit-birth"/>
-    </div>
-    <button class="modal-close-btn" onclick="saveEditPet()">Guardar cambios ✅</button>
-    <button style="width:100%;background:none;border:none;padding:10px;font-family:'Lato',sans-serif;font-size:0.82rem;color:#aaa;cursor:pointer;margin-top:4px;" onclick="closeModal()">Cancelar</button>
-  </div>
-</div>
+        // DR. PATA - CONSULTA GENERAL
+        function consultarDrPata() {
+            const prompt = `Hola, soy el Dr. Pata 🐾, tu veterinario virtual especializado en perros y gatos.
 
-<script>
-var petData={name:'',species:'perro',breed:'',birth:'',sex:'macho'};
-var vacunas=[];
-var iaMessages=[];
-var isIaTyping=false;
-var currentAlimTab='puede';
-var SK='mimascota_v1';
-var API_KEY='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';
+Puedo ayudarte con:
+✅ Síntomas y posibles diagnósticos
+✅ Alimentación y nutrición
+✅ Comportamiento y adiestramiento
+✅ Calendario de vacunas
+✅ Desparasitación
+✅ Cuidados generales
+✅ Primeros auxilios
 
-// DATA ALIMENTACION
-var ALIM={
-  perro:{
-    puede:[
-      {name:'Pollo cocido',desc:'Sin huesos, sin condimentos — excelente fuente de proteína'},
-      {name:'Arroz cocido',desc:'Ideal para digestiones sensibles'},
-      {name:'Zanahoria',desc:'Cruda o cocida — baja en calorías y buena para los dientes'},
-      {name:'Manzana',desc:'Sin semillas ni corazón — buena fuente de vitaminas'},
-      {name:'Zapallo',desc:'Cocido y sin semillas — excelente para la digestión'},
-      {name:'Arándanos',desc:'Antioxidantes naturales — en pequeñas cantidades'},
-      {name:'Huevo cocido',desc:'Fuente de proteínas y grasas saludables'},
-      {name:'Batata/Boniato',desc:'Cocida — rica en vitaminas y fibra'},
-    ],
-    noPuede:[
-      {name:'Chocolate',desc:'¡MUY TÓXICO! Puede causar convulsiones y muerte'},
-      {name:'Uvas y pasas',desc:'¡TÓXICO! Puede causar insuficiencia renal'},
-      {name:'Cebolla y ajo',desc:'¡TÓXICO! Destruye glóbulos rojos'},
-      {name:'Xilitol',desc:'¡MORTAL! Presente en chicles y algunos alimentos light'},
-      {name:'Macadamia',desc:'¡TÓXICO! Causa debilidad, vómitos y fiebre'},
-      {name:'Aguacate/Palta',desc:'Tóxico — contiene persina'},
-      {name:'Alcohol',desc:'¡MORTAL! Incluso en pequeñas cantidades'},
-      {name:'Huesos cocidos',desc:'Se astillan y pueden perforar el intestino'},
-    ],
-    moderado:[
-      {name:'Queso',desc:'Alto en grasa — solo como premio ocasional'},
-      {name:'Leche',desc:'Muchos perros son intolerantes a la lactosa'},
-      {name:'Atún enlatado',desc:'Alto en mercurio — solo ocasionalmente'},
-      {name:'Banana',desc:'Alta en azúcar — en pequeñas cantidades'},
-      {name:'Maíz',desc:'Cocido y sin mazorca — puede ser difícil de digerir'},
-    ]
-  },
-  gato:{
-    puede:[
-      {name:'Pollo cocido',desc:'Sin huesos ni condimentos — proteína ideal para gatos'},
-      {name:'Atún natural',desc:'Ocasionalmente — fuente de omega 3'},
-      {name:'Salmón cocido',desc:'Sin espinas — excelente fuente de proteína'},
-      {name:'Zanahoria cocida',desc:'En pequeñas cantidades como snack'},
-      {name:'Calabaza cocida',desc:'Buena para la digestión y previene bolas de pelo'},
-      {name:'Huevo cocido',desc:'Solo la clara — fuente de proteína magra'},
-    ],
-    noPuede:[
-      {name:'Chocolate',desc:'¡MUY TÓXICO! Puede causar la muerte'},
-      {name:'Cebolla y ajo',desc:'¡TÓXICO! Destruye glóbulos rojos en gatos'},
-      {name:'Uvas y pasas',desc:'¡TÓXICO! Insuficiencia renal'},
-      {name:'Alcohol',desc:'¡MORTAL! Incluso gotas pequeñas'},
-      {name:'Cafeína',desc:'¡TÓXICO! Presente en café, té y energizantes'},
-      {name:'Xilitol',desc:'¡MORTAL! Presente en chicles y productos light'},
-      {name:'Leche de vaca',desc:'Los gatos adultos son intolerantes a la lactosa'},
-      {name:'Perros y comida de perro',desc:'No tiene los nutrientes que necesitan los gatos'},
-    ],
-    moderado:[
-      {name:'Queso',desc:'Pequeñas cantidades — alto en grasa y lactosa'},
-      {name:'Atún enlatado en aceite',desc:'Con mucha moderación — alto en mercurio'},
-      {name:'Carne cruda',desc:'Riesgo de bacterias — mejor cocida'},
-    ]
-  }
-};
+⚠️ IMPORTANTE: Soy una herramienta de orientación. En casos graves o dudas, siempre consultá con un veterinario presencial.
 
-// DATA TRUCOS
-var TRUCOS_PERRO=[
-  {name:'Sentado',emoji:'🪑',nivel:'basico',steps:['Sostené un premio cerca de la nariz de tu perro','Mové tu mano hacia atrás sobre su cabeza — el trasero caerá naturalmente','En el momento que se siente, decí "¡Sentado!" con firmeza','Dale el premio inmediatamente y elogialo mucho','Repetí 5-10 veces por sesión']},
-  {name:'Quieto',emoji:'✋',nivel:'basico',steps:['Pedile que se siente','Con la palma de la mano hacia él, decí "¡Quieto!"','Retrocedé un paso — si se queda quieto, volvé y premialo','Aumentá gradualmente la distancia y el tiempo','Si se mueve, volvé a empezar sin retarlo']},
-  {name:'Ven aquí',emoji:'🏃',nivel:'basico',steps:['Agachate y con voz alegre decí "¡Ven!" o su nombre','Cuando llegue, celebrá mucho y dale el premio','Nunca lo llames para retarlo — asociará "ven" con algo malo','Practicalo en distintos lugares de la casa','Luego practicalo en el parque con correa larga']},
-  {name:'Dame la pata',emoji:'🤝',nivel:'medio',steps:['Pedile que se siente','Sostené un premio en el puño cerrado frente a él','Cuando rasque tu mano con la pata, abrí el puño y dale el premio','Agregá el comando "¡Dame la pata!" cuando ya lo haga','Luego practicalo con la mano abierta sin premio']},
-  {name:'Échate',emoji:'😴',nivel:'medio',steps:['Desde la posición sentado, sostené el premio frente a su nariz','Bajá lentamente el premio hacia el suelo','Cuando se eche completamente, decí "¡Échate!" y premialo','Si solo baja la cabeza, ayudalo suavemente con la otra mano','Requiere más paciencia que sentado']},
-  {name:'Rueda',emoji:'🔄',nivel:'avanzado',steps:['Primero debe saber echarse perfectamente','Desde echado, acercá el premio a su nariz y movelo en círculo','Seguirá el premio y rodará sobre sí mismo','Decí "¡Rueda!" durante el movimiento','Premialo apenas complete la vuelta completa']},
-];
+¿Qué necesitás saber sobre tu mascota?`;
 
-var TRUCOS_GATO=[
-  {name:'Ven aquí',emoji:'🐱',nivel:'basico',steps:['Usá su nombre o un sonido especial (chasquido de lengua)','Cuando venga, premialo inmediatamente con su snack favorito','Los gatos responden mejor al refuerzo positivo que a la voz alta','Practicalo en horarios de comida — ya está motivado','Nunca lo fuerces a venir — respetá su ritmo']},
-  {name:'Sentado',emoji:'🪑',nivel:'basico',steps:['Sostené el premio cerca de su nariz','Movelo hacia atrás sobre su cabeza — el trasero caerá','Decí "Sentado" cuando se siente','Premio inmediato y sin demoras','Los gatos se aburren rápido — sesiones de 2-3 minutos']},
-  {name:'Choca los cinco',emoji:'✋',nivel:'medio',steps:['Sostené el premio entre tus dedos a la altura de su cabeza','Cuando toque tu mano con su pata, decí "¡Choca!" y dale el premio','Gradualmente levantá más la mano','Los gatos aprenden esto muy rápido si les gusta el premio','Usá premios húmedos — son más motivadores']},
-  {name:'Saltar aros',emoji:'⭕',nivel:'avanzado',steps:['Empezá con el aro en el suelo — premialo por pasar a través','Levantá el aro gradualmente a medida que aprende','Siempre el premio del otro lado del aro','Nunca fuerces — debe ser divertido para él','Puede tomar varias semanas de práctica diaria']},
-];
+            window.open('https://claude.ai/new?q=' + encodeURIComponent(prompt), '_blank');
+        }
 
-// DATA EMERGENCIAS
-var EMERGENCIAS=[
-  {name:'Comió algo tóxico',emoji:'☠️',urgencia:'alta',pasos:['Identificá qué comió y cuánto — guardá el envase si lo hay','NO induzcas el vómito sin consultar al veterinario antes','Llamá al veterinario inmediatamente — describí qué comió','Si tiene convulsiones o pierde el conocimiento, corrés al veterinario','Llevá siempre el envase o foto del producto tóxico'],alerta:'NO esperes síntomas para actuar — el tiempo es clave en intoxicaciones.'},
-  {name:'No puede respirar bien',emoji:'😮‍💨',urgencia:'alta',pasos:['Revisá que no tenga algo atascado en la garganta','Si está consciente, mantenelo tranquilo y en posición cómoda','Si tiene las encías azules o moradas, es emergencia GRAVE','Trasladalo al veterinario de inmediato sin pérdida de tiempo','No intentes sacar objetos de la garganta sin experiencia'],alerta:'Encías azules = emergencia de vida. Ir al veterinario AHORA.'},
-  {name:'Se cortó o tiene una herida',emoji:'🩸',urgencia:'media',pasos:['Aplicá presión con una tela limpia durante 5-10 minutos','Si el sangrado no para, ir al veterinario urgente','Limpiar la herida con agua limpia — no alcohol ni iodo','Cubrir con una venda limpia para evitar que se lama','Heridas profundas siempre necesitan veterinario'],alerta:'Si el sangrado no para en 10 minutos, es emergencia.'},
-  {name:'Vómitos y diarrea',emoji:'🤢',urgencia:'media',pasos:['Retirá la comida por 6-12 horas — solo agua en pequeñas cantidades','Si tiene sangre en el vómito o diarrea, ir al veterinario ya','Si vomitó más de 3 veces seguidas, ir al veterinario','Después de las 12 horas, ofrecé arroz blanco con pollo hervido','Si no mejora en 24 horas, consultar veterinario'],alerta:'Sangre en vómito o diarrea = emergencia. No esperes.'},
-  {name:'Golpe de calor',emoji:'🌡️',urgencia:'alta',pasos:['Llevalo a un lugar fresco con sombra de inmediato','Mojá su cuerpo con agua fresca — NO FRÍA — especialmente cabeza y patas','Ofrecele agua fresca para beber si está consciente','Ponele paños húmedos en las axilas e inglés','Llevalo al veterinario aunque parezca mejorar'],alerta:'NO uses agua helada — puede causar shock. Solo agua fresca.'},
-  {name:'Se tragó algo',emoji:'🦴',urgencia:'media',pasos:['Identificá qué se tragó y hace cuánto tiempo','Si es un objeto pequeño y redondeado puede pasar solo','Si es filoso, hueso o plástico, ir al veterinario ya','NO lo induzcas a vomitar sin consultar al veterinario','Observá si come, hace sus necesidades y si tiene dolor abdominal'],alerta:'Objetos filosos o huesos = veterinario inmediato.'},
-  {name:'Convulsiones',emoji:'⚡',urgencia:'alta',pasos:['No lo toques ni lo sujetes durante la convulsión','Alejá objetos con los que pueda golpearse','Tomá el tiempo — si dura más de 2 minutos, ir al veterinario YA','Después de la convulsión estará confundido — mantenelo tranquilo','Anotá cuánto duró y cómo fue para contarle al veterinario'],alerta:'Convulsión de más de 2 minutos = emergencia de vida.'},
-];
+        // DR. PATA - PREGUNTA RÁPIDA
+        function preguntaRapida(pregunta) {
+            const prompt = `Soy el Dr. Pata 🐾, tu veterinario virtual.
 
-function saveData(){
-  try{localStorage.setItem(SK,JSON.stringify({petData:petData,vacunas:vacunas}));}catch(e){}
-}
-function loadData(){
-  try{var r=localStorage.getItem(SK);if(r){var d=JSON.parse(r);petData=d.petData||petData;vacunas=d.vacunas||[];}}catch(e){}
-}
+CONSULTA: ${pregunta}
 
-function selectSpecies(sp,el){
-  petData.species=sp;
-  document.querySelectorAll('.species-btn').forEach(function(b){b.classList.remove('selected');});
-  el.classList.add('selected');
-}
+Por favor, dame la información más detallada posible sobre tu mascota y la situación.`;
 
-function calcAge(birth){
-  if(!birth)return '';
-  var b=new Date(birth);var now=new Date();
-  var years=now.getFullYear()-b.getFullYear();
-  var months=now.getMonth()-b.getMonth();
-  if(months<0){years--;months+=12;}
-  if(years===0) return months+' '+(months===1?'mes':'meses');
-  return years+' '+(years===1?'año':'años')+(months>0?' y '+months+' '+(months===1?'mes':'meses'):'');
-}
+            window.open('https://claude.ai/new?q=' + encodeURIComponent(prompt), '_blank');
+        }
 
-function savePet(){
-  var name=document.getElementById('pet-name').value.trim();
-  if(!name){alert('Poné el nombre de tu mascota 🐾');return;}
-  petData.name=name;
-  petData.breed=document.getElementById('pet-breed').value.trim()||'Sin especificar';
-  petData.birth=document.getElementById('pet-birth').value;
-  petData.sex=document.getElementById('pet-sex').value;
-  saveData();
-  initApp();
-}
+        // DR. PATA - EMERGENCIA
+        function emergencia() {
+            const prompt = `🚨 EMERGENCIA VETERINARIA 🚨
 
-function initApp(){
-  updateHomeProfile();
-  renderVacunas();
-  renderAlim();
-  renderTrucos();
-  renderEmergencias();
-  renderHomeReminders();
-  document.getElementById('screen-welcome').classList.remove('active');
-  document.getElementById('screen-home').classList.add('active');
-  document.getElementById('bottom-nav').style.display='flex';
-  // Mensaje inicial IA
-  if(iaMessages.length===0){
-    addIaMsg('companion','¡Hola! Soy el Dr. Pata 🐾 Tu veterinario virtual especializado en '+
-      (petData.species==='perro'?'perros':'gatos')+'. ¿En qué puedo ayudarte hoy con '+petData.name+'?');
-  }
-}
+Soy el Dr. Pata. Describime la emergencia con el mayor detalle posible:
 
-function updateHomeProfile(){
-  document.getElementById('home-avatar').textContent=petData.species==='perro'?'🐕':'🐱';
-  document.getElementById('home-name').textContent=petData.name;
-  document.getElementById('home-breed').textContent=petData.breed+' · '+(petData.sex==='macho'?'Macho':'Hembra');
-  document.getElementById('home-age').textContent=petData.birth?'🎂 '+calcAge(petData.birth):'Edad no registrada';
-  document.getElementById('lib-title').textContent='Libreta de '+petData.name;
-  document.getElementById('alim-title').textContent='¿Qué puede comer '+petData.name+'?';
-  document.getElementById('adiest-title').textContent='Trucos para '+petData.name;
-}
+- ¿Qué síntomas tiene tu mascota?
+- ¿Cuándo empezó?
+- ¿Comió o bebió algo inusual?
+- ¿Hubo algún golpe o accidente?
+- ¿Tiene historial médico relevante?
 
-function showScreen(s,el,navId){
-  document.querySelectorAll('.screen').forEach(function(sc){sc.classList.remove('active');});
-  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
-  document.getElementById('screen-'+s).classList.add('active');
-  if(navId) document.getElementById(navId).classList.add('active');
-  if(s==='cachorros') loadCachorros();
-  window.scrollTo(0,0);
-}
+⚠️ MUY IMPORTANTE: 
+Si tu mascota presenta síntomas graves (convulsiones, sangrado abundante, dificultad respiratoria severa, envenenamiento), llevala INMEDIATAMENTE a la guardia veterinaria más cercana. Esta es orientación inicial mientras te dirigís al veterinario.`;
 
-function editPet(){
-  document.getElementById('edit-name').value=petData.name;
-  document.getElementById('edit-breed').value=petData.breed;
-  document.getElementById('edit-birth').value=petData.birth;
-  document.getElementById('edit-modal').classList.add('open');
-}
-function saveEditPet(){
-  petData.name=document.getElementById('edit-name').value.trim()||petData.name;
-  petData.breed=document.getElementById('edit-breed').value.trim()||petData.breed;
-  petData.birth=document.getElementById('edit-birth').value;
-  saveData();updateHomeProfile();closeModal();
-}
-function closeModal(){document.getElementById('edit-modal').classList.remove('open');}
+            window.open('https://claude.ai/new?q=' + encodeURIComponent(prompt), '_blank');
+        }
 
-// VACUNAS
-function addVacuna(){
-  var name=document.getElementById('vac-name').value.trim();
-  if(!name){alert('Escribí el nombre de la vacuna');return;}
-  vacunas.push({name:name,date:document.getElementById('vac-date').value,next:document.getElementById('vac-next').value,id:Date.now()});
-  document.getElementById('vac-name').value='';
-  document.getElementById('vac-date').value='';
-  document.getElementById('vac-next').value='';
-  saveData();renderVacunas();renderHomeReminders();
-}
+        // MOSTRAR INSTRUCCIONES DE TRUCOS
+        function mostrarTruco(truco) {
+            const trucos = {
+                'sentado': `🪑 CÓMO ENSEÑAR "SENTADO"
 
-function getVacStatus(next){
-  if(!next)return{label:'Sin fecha',cls:'status-ok'};
-  var d=new Date(next);var now=new Date();var diff=(d-now)/(1000*60*60*24);
-  if(diff<0)return{label:'Vencida',cls:'status-vencido'};
-  if(diff<=30)return{label:'En '+Math.round(diff)+' días',cls:'status-pronto'};
-  return{label:'Al día ✓',cls:'status-ok'};
-}
+1. Tomá un premio en tu mano
+2. Poné el premio cerca de su nariz
+3. Movelo hacia arriba y atrás sobre su cabeza
+4. Naturalmente se sentará
+5. Cuando se siente, decí "SENTADO" y dale el premio
+6. Repetí 5-10 veces al día
 
-function renderVacunas(){
-  var el=document.getElementById('vacunas-list');
-  if(vacunas.length===0){el.innerHTML='<div style="text-align:center;padding:20px;color:#aaa;font-size:0.82rem;">Aún no hay vacunas registradas.<br>Agregá la primera arriba ⬆️</div>';return;}
-  el.innerHTML=vacunas.map(function(v){
-    var st=getVacStatus(v.next);
-    return '<div class="vacuna-card"><div class="vacuna-badge">💉</div><div style="flex:1;"><div class="vacuna-name">'+v.name+'</div><div class="vacuna-date">'+(v.date?'Aplicada: '+formatDate(v.date):'Sin fecha de aplicación')+'</div>'+(v.next?'<div class="vacuna-prox">Próxima: '+formatDate(v.next)+'</div>':'')+'</div><span class="reminder-status '+st.cls+'">'+st.label+'</span></div>';
-  }).join('');
-}
+Consultale al Dr. Pata si tenés dudas`,
 
-function renderHomeReminders(){
-  var el=document.getElementById('home-reminders');
-  var proximas=vacunas.filter(function(v){return v.next;}).sort(function(a,b){return new Date(a.next)-new Date(b.next);}).slice(0,3);
-  if(proximas.length===0){el.innerHTML='<div style="text-align:center;padding:16px;color:#aaa;font-size:0.78rem;">No hay recordatorios pendientes.<br>Agregá vacunas en la Libreta Sanitaria 💉</div>';return;}
-  el.innerHTML=proximas.map(function(v){
-    var st=getVacStatus(v.next);
-    return '<div class="reminder-card"><div class="reminder-icon">💉</div><div style="flex:1;"><div class="reminder-name">'+v.name+'</div><div class="reminder-date">Próxima: '+formatDate(v.next)+'</div></div><span class="reminder-status '+st.cls+'">'+st.label+'</span></div>';
-  }).join('');
-}
+                'echado': `🛏️ CÓMO ENSEÑAR "ECHADO"
 
-function formatDate(d){
-  if(!d)return '';
-  var parts=d.split('-');return parts[2]+'/'+parts[1]+'/'+parts[0];
-}
+1. Primero que el perro esté sentado
+2. Tomá un premio
+3. Bajalo desde su nariz hasta el suelo
+4. Cuando se eche, decí "ECHADO" y premiá
+5. Si no funciona, usá un premio que le guste mucho
+6. Sé paciente, puede llevar varios intentos
 
-// ALIMENTACION
-function setAlimTab(tab,el){
-  currentAlimTab=tab;
-  document.querySelectorAll('.alim-tab').forEach(function(t){t.classList.remove('active');});
-  el.classList.add('active');
-  renderAlim();
-}
+Consultale al Dr. Pata para más consejos`,
 
-function renderAlim(){
-  var sp=petData.species||'perro';
-  var data=ALIM[sp];
-  var list=currentAlimTab==='puede'?data.puede:currentAlimTab==='no-puede'?data.noPuede:data.moderado;
-  var dotClass=currentAlimTab==='puede'?'dot-ok':currentAlimTab==='no-puede'?'dot-no':'dot-mod';
-  document.getElementById('alim-list').innerHTML=list.map(function(item){
-    return '<div class="alim-item"><div class="alim-dot '+dotClass+'"></div><div><div class="alim-name">'+item.name+'</div><div class="alim-desc">'+item.desc+'</div></div></div>';
-  }).join('');
-}
+                'quieto': `✋ CÓMO ENSEÑAR "QUIETO"
 
-// TRUCOS
-function renderTrucos(){
-  var sp=petData.species||'perro';
-  var trucos=sp==='perro'?TRUCOS_PERRO:TRUCOS_GATO;
-  document.getElementById('trucos-list').innerHTML=trucos.map(function(t,i){
-    return '<div class="truco-card"><div class="truco-header" onclick="toggleTruco('+i+')"><div class="truco-name">'+t.emoji+' '+t.name+'</div><div style="display:flex;align-items:center;gap:8px;"><span class="truco-level nivel-'+t.nivel+'">'+(t.nivel==='basico'?'Básico':t.nivel==='medio'?'Medio':'Avanzado')+'</span><span class="truco-expand" id="te-'+i+'">▼</span></div></div><div class="truco-body" id="tb-'+i+'">'+t.steps.map(function(s,j){return '<div class="truco-step"><div class="step-circle">'+(j+1)+'</div><div>'+s+'</div></div>';}).join('')+'</div></div>';
-  }).join('');
-}
-function toggleTruco(i){
-  document.getElementById('tb-'+i).classList.toggle('open');
-  document.getElementById('te-'+i).classList.toggle('open');
-}
+1. Pedile que se siente
+2. Decí "QUIETO" y alejate un paso
+3. Si se queda quieto 2 segundos, volvé y premiá
+4. Aumentá gradualmente la distancia y el tiempo
+5. Practicá en lugares sin distracciones primero
 
-// EMERGENCIAS
-function renderEmergencias(){
-  document.getElementById('emergencias-list').innerHTML=EMERGENCIAS.map(function(e,i){
-    return '<div class="emerg-card"><div class="emerg-card-header" onclick="toggleEmerg('+i+')"><div class="emerg-name">'+e.emoji+' '+e.name+'</div><div style="display:flex;align-items:center;gap:8px;"><span class="emerg-urgencia '+(e.urgencia==='alta'?'urg-alta':'urg-media')+'">'+(e.urgencia==='alta'?'🔴 URGENTE':'🟡 Moderado')+'</span><span class="truco-expand" id="ee-'+i+'">▼</span></div></div><div class="emerg-body" id="eb-'+i+'">'+e.pasos.map(function(p,j){return '<div class="emerg-paso"><div class="emerg-num">'+(j+1)+'</div><div>'+p+'</div></div>';}).join('')+'<div class="emerg-alerta">⚠️ '+e.alerta+'</div></div></div>';
-  }).join('');
-}
-function toggleEmerg(i){
-  document.getElementById('eb-'+i).classList.toggle('open');
-  document.getElementById('ee-'+i).classList.toggle('open');
-}
+Consultale al Dr. Pata si necesitás ayuda`,
 
-// IA VETERINARIA
-function addIaMsg(role,text){
-  iaMessages.push({role:role,text:text});
-  var msgs=document.getElementById('ia-messages');
-  var div=document.createElement('div');
-  div.className='ia-msg '+(role==='user'?'user':'');
-  var now=new Date();
-  var time=now.getHours()+':'+(now.getMinutes()<10?'0':'')+now.getMinutes();
-  if(role==='companion'){
-    div.innerHTML='<div class="ia-msg-av">🐾</div><div><div class="ia-bubble">'+text+'</div><div class="ia-time">'+time+'</div></div>';
-  } else {
-    div.innerHTML='<div><div class="ia-bubble">'+text+'</div><div class="ia-time">'+time+'</div></div>';
-  }
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
-}
+                'pata': `🤝 CÓMO ENSEÑAR "DAME LA PATA"
 
-function showIaTyping(){
-  var msgs=document.getElementById('ia-messages');
-  var div=document.createElement('div');div.className='ia-msg';div.id='ia-typing';
-  div.innerHTML='<div class="ia-msg-av">🐾</div><div class="ia-typing"><span></span><span></span><span></span></div>';
-  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
-}
-function removeIaTyping(){var t=document.getElementById('ia-typing');if(t)t.remove();}
+1. Perro sentado frente a vos
+2. Tocá suavemente su pata
+3. Cuando la levante, tomala y decí "PATA"
+4. Premiá inmediatamente
+5. Repetí hasta que ofrezca la pata sin tocarla
 
-function handleIaKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendIaMessage();}}
-function autoResizeIa(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px';}
+Consultale al Dr. Pata para más trucos`,
 
-function sendQuick(text){
-  document.getElementById('ia-input').value=text;
-  sendIaMessage();
-}
+                'venir': `📣 CÓMO ENSEÑAR "VENÍ"
 
-async function sendIaMessage(){
-  if(isIaTyping)return;
-  var input=document.getElementById('ia-input');
-  var text=input.value.trim();if(!text)return;
-  addIaMsg('user',text);
-  input.value='';input.style.height='auto';
-  var history=iaMessages.slice(-10).map(function(m){return{role:m.role==='user'?'user':'assistant',content:m.text};});
-  isIaTyping=true;showIaTyping();
-  var sp=petData.species==='perro'?'perros':'gatos';
-  var sys='Sos el Dr. Pata, un veterinario virtual especializado en '+sp+'. El usuario tiene un '+petData.species+' llamado '+petData.name+' ('+petData.breed+', '+calcAge(petData.birth)+'). Respondés en español argentino con "vos". Sos cálido, profesional y claro. Respondés en 3-5 oraciones. Siempre recomendás consultar al veterinario en casos graves. Nunca diagnosticás enfermedades — solo orientás.';
-  try{
-    var res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:sys,messages:history})
-    });
-    var data=await res.json();
-    var reply=data.content&&data.content[0]?data.content[0].text:'Disculpá, tuve un problema. Intentá de nuevo 🐾';
-    removeIaTyping();addIaMsg('companion',reply);
-  }catch(e){
-    removeIaTyping();
-    addIaMsg('companion','Disculpá, no pude conectarme. Revisá tu conexión e intentá de nuevo 🐾');
-  }
-  isIaTyping=false;
-}
+1. Empezá en un lugar cerrado y seguro
+2. Mostrale un premio o juguete
+3. Decí su nombre + "VENÍ" con tono alegre
+4. Cuando venga, premiá muchísimo
+5. NUNCA lo retes cuando venga a tu llamado
+6. Practicá todos los días
 
-// CACHORROS
-var CACHORROS_URL='https://raw.githubusercontent.com/PatagoniaSecreta/Mi-Mascota/main/cachorros.json';
+Este es el comando MÁS IMPORTANTE. Consultale al Dr. Pata si tenés dificultades`
+            };
 
-async function loadCachorros(){
-  var el=document.getElementById('cachorros-list');
-  try{
-    var res=await fetch(CACHORROS_URL+'?t='+Date.now());
-    var data=await res.json();
-    if(!data||data.length===0){
-      el.innerHTML='<div class="no-cachorros">🐾 No hay cachorros disponibles en este momento.<br><br>¿Tenés cachorros para vender?<br>¡Contactanos y publicamos gratis!</div>';
-      return;
-    }
-    // Destacados primero
-    data.sort(function(a,b){return (b.destacado?1:0)-(a.destacado?1:0);});
-    el.innerHTML=data.map(function(c){
-      return '<div class="cachorro-card'+(c.destacado?' destacado':'')+'">'+
-        (c.destacado?'<div class="destacado-badge">⭐ DESTACADO</div>':'')+
-        '<div class="cachorro-foto"><img src="'+c.foto+'" alt="'+c.raza+'" loading="lazy" onerror="this.src=\'https://via.placeholder.com/400x200/A0522D/ffffff?text='+encodeURIComponent(c.raza)+'\'"/></div>'+
-        '<div class="cachorro-info">'+
-        '<div class="cachorro-raza">'+c.raza+'</div>'+
-        '<div class="cachorro-criador">👤 '+c.criador+' · 📍 '+c.ciudad+'</div>'+
-        '<div class="cachorro-tags">'+
-        '<span class="cachorro-tag">🐾 '+c.raza+'</span>'+
-        '<span class="cachorro-tag">📅 '+c.edad+'</span>'+
-        '<span class="cachorro-tag">📍 '+c.ciudad+'</span>'+
-        '</div>'+
-        '<div class="cachorro-precio">$ '+c.precio+'</div>'+
-        '<div class="cachorro-desc">'+c.descripcion+'</div>'+
-        (c.fotoPadre||c.fotoMadre?'<div style="font-size:0.72rem;font-weight:700;color:var(--tierra);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">📸 Los padres</div><div class="padres-section">'+
-        (c.fotoPadre?'<div class="padre-card"><img class="padre-foto" src="'+c.fotoPadre+'" onerror="this.src=\'https://via.placeholder.com/200x80/A0522D/ffffff?text=Padre\'"/><div class="padre-label">👨 Padre</div></div>':'')+
-        (c.fotoMadre?'<div class="padre-card"><img class="padre-foto" src="'+c.fotoMadre+'" onerror="this.src=\'https://via.placeholder.com/200x80/A0522D/ffffff?text=Madre\'"/><div class="padre-label">👩 Madre</div></div>':'')+'</div>':'')+
-        '<button class="contactar-btn" onclick="window.open(\'https://wa.me/'+c.whatsapp+'?text='+encodeURIComponent('Hola! Vi tu publicación en Mi Mascota App. Me interesa el/la '+c.raza+' de '+c.edad+'. ¿Podés darme más info?')+'\',\'_blank\')">💬 Contactar por WhatsApp</button>'+
-        '</div></div>';
-    }).join('');
-  }catch(e){
-    el.innerHTML='<div class="no-cachorros">📵 Sin conexión o sin cachorros disponibles.<br><br>¿Tenés cachorros para vender?<br>¡Contactanos!</div>';
-  }
-}
+            alert(trucos[truco]);
+        }
 
-// INIT
-window.addEventListener('load',function(){
-  loadData();
-  if(petData.name){
-    document.getElementById('screen-welcome').classList.remove('active');
-    document.getElementById('screen-home').classList.add('active');
-    document.getElementById('bottom-nav').style.display='flex';
-    initApp();
-  }
-});
-</script>
-<!-- Este bloque se agrega al final del body, antes del cierre -->
+        // LIBRETA SANITARIA - AGREGAR VACUNA
+        function agregarVacuna() {
+            const nombre = document.getElementById('vacuna-nombre').value;
+            const fecha = document.getElementById('vacuna-fecha').value;
+            const proxima = document.getElementById('vacuna-proxima').value;
+
+            if (!fecha) {
+                alert('Por favor ingresá la fecha de aplicación');
+                return;
+            }
+
+            // Guardar en localStorage
+            let vacunas = JSON.parse(localStorage.getItem('vacunas') || '[]');
+            vacunas.push({ nombre, fecha, proxima });
+            localStorage.setItem('vacunas', JSON.stringify(vacunas));
+
+            // Limpiar campos
+            document.getElementById('vacuna-fecha').value = '';
+            document.getElementById('vacuna-proxima').value = '';
+
+            // Actualizar lista
+            cargarVacunas();
+        }
+
+        // CARGAR VACUNAS GUARDADAS
+        function cargarVacunas() {
+            const vacunas = JSON.parse(localStorage.getItem('vacunas') || '[]');
+            const lista = document.getElementById('lista-vacunas');
+
+            if (vacunas.length === 0) {
+                lista.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">No hay vacunas registradas aún</p>';
+                return;
+            }
+
+            lista.innerHTML = vacunas.map((v, index) => `
+                <div class="vacuna-item">
+                    <h4>${v.nombre}</h4>
+                    <p>📅 Aplicada: ${new Date(v.fecha).toLocaleDateString('es-AR')}</p>
+                    ${v.proxima ? `<p>🔔 Próxima: ${new Date(v.proxima).toLocaleDateString('es-AR')}</p>` : ''}
+                    <button onclick="eliminarVacuna(${index})" style="background: #e74c3c; color: white; border: none; padding: 5px 15px; border-radius: 5px; margin-top: 10px; cursor: pointer;">
+                        🗑️ Eliminar
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // ELIMINAR VACUNA
+        function eliminarVacuna(index) {
+            let vacunas = JSON.parse(localStorage.getItem('vacunas') || '[]');
+            vacunas.splice(index, 1);
+            localStorage.setItem('vacunas', JSON.stringify(vacunas));
+            cargarVacunas();
+        }
+
+        // CONTACTO PUBLICACIÓN
+        function contactarPublicacion() {
+            const mensaje = '¡Hola! Quiero publicar cachorros en la app Mi Mascota 🐾';
+            window.open(`https://wa.me/5492984307533?text=${encodeURIComponent(mensaje)}`, '_blank');
+        }
+
+        // CONTACTAR VENDEDOR
+        function contactarVendedor(raza) {
+            const mensaje = `Hola, vi la publicación de ${raza} en Mi Mascota y me interesa. ¿Está disponible?`;
+            window.open(`https://wa.me/5492984307533?text=${encodeURIComponent(mensaje)}`, '_blank');
+        }
+
+        // CARGAR VACUNAS AL INICIAR
+        window.onload = function() {
+            cargarVacunas();
+        };
+
+        // SERVICE WORKER
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
